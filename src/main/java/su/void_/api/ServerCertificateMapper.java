@@ -16,11 +16,9 @@
 
 package su.void_.api;
 
-import java.security.cert.CertificateParsingException;
 import java.security.cert.X509Certificate;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Arrays;
 
 public class ServerCertificateMapper {
     private X509Certificate certificate = null;
@@ -31,30 +29,21 @@ public class ServerCertificateMapper {
         this.serverCertificate = new ServerCertificate();
     }
 
-    public ServerCertificate toServerCertificate() {
+    public ServerCertificate toServerCertificate(String serverName) {
         if (certificate != null) {
             Instant certificateNotAfter = certificate.getNotAfter().toInstant();
             Instant certificateNotBefore = certificate.getNotBefore().toInstant();
             Instant now = Instant.now();
             Duration duration = Duration.between(now, certificateNotAfter);
             long remains = duration.toDays();
-
-            System.out.println(certificate.getIssuerDN());
-            System.out.println(certificateNotAfter);
-
-            try {
-                if (null != certificate.getSubjectAlternativeNames()) {
-                    Arrays.stream(certificate.getSubjectAlternativeNames().toArray()).forEach(s -> System.out.println(s));
-                }
-            } catch (CertificateParsingException e) {
-                e.printStackTrace();
-            }
+            MatchService matchService = new MatchService(certificate);
 
             serverCertificate.setNotAfter(certificateNotAfter.getEpochSecond());
             serverCertificate.setNotBefore(certificateNotBefore.getEpochSecond());
             serverCertificate.setDistinguishedName(certificate.getSubjectDN().toString());
             serverCertificate.setRemains(remains);
             serverCertificate.setValidity(remains > 0L);
+            serverCertificate.setMatch(matchService.find(serverName));
         }
         return serverCertificate;
     }

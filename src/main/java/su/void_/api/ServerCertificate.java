@@ -22,6 +22,7 @@ public class ServerCertificate {
     private String distinguishedName = null;
     private Long remains = null;
     private Boolean validity = null;
+    private Boolean match = false;
 
     public Long getNotAfter() {
         return notAfter;
@@ -61,5 +62,13 @@ public class ServerCertificate {
 
     public void setValidity(Boolean validity) {
         this.validity = validity;
+    }
+
+    public Boolean getMatch() {
+        return match;
+    }
+
+    public void setMatch(Boolean match) {
+        this.match = match;
     }
 }

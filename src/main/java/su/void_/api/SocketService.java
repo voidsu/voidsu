@@ -73,7 +73,7 @@ public class SocketService {
             e.printStackTrace();
         }
         ServerCertificateMapper serverCertificateMapper = new ServerCertificateMapper(serverCertificate);
-        return serverCertificateMapper.toServerCertificate();
+        return serverCertificateMapper.toServerCertificate(serverName);
     }
 
     public void close() {
