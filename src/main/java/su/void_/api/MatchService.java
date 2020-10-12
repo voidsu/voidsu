@@ -42,8 +42,6 @@ public class MatchService {
                     Object[] extensions = extensionList.toArray();
                     Integer key = (Integer) extensions[0];
                     String value = (String) extensions[1];
-                    System.out.println(serverName);
-                    System.out.println(value);
                     if ((key == MatchService.DNS_NAME) && (serverName.equals(value))) {
                         output = true;
                         break;

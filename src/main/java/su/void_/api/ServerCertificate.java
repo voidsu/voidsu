@@ -16,7 +16,9 @@
 
 package su.void_.api;
 
-public class ServerCertificate {
+import java.io.Serializable;
+
+public class ServerCertificate implements Serializable {
     private Long notAfter = null;
     private Long notBefore = null;
     private String distinguishedName = null;
