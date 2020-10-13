@@ -17,18 +17,6 @@
 package su.void_.api;
 
 public class LookupService {
-//    public static void main(String[] args) {
-//        (new LookupService()).lookup("void.su", 443, "void.su");
-//        (new LookupService()).lookup("mail.okd.su", 10443, "mail.okd.su");
-////        (new LookupService()).lookup("rckt.cc", 443, "rckt.cc");
-////        (new LookupService()).lookup("komarev.com", 443, "komarev.com");
-////        (new LookupService()).lookup("facebook.com", 443, "facebook.com");
-////        (new LookupService()).lookup("oracle.com", 443, "oracle.com");
-////        (new LookupService()).lookup("23.14.12.195", 443, "oracle.com");
-////        (new LookupService()).lookup("combats.su", 443, "combats.su");
-////        (new LookupService()).lookup("23.14.12.195", 443, "www.oracle.com");
-//    }
-
     public ServerCertificate lookup(String address, Integer port, String serverName) {
         SocketService socketService = new SocketService(address, port, serverName);
         socketService.create();

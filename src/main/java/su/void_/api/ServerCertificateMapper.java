@@ -44,6 +44,7 @@ public class ServerCertificateMapper {
             serverCertificate.setRemains(remains);
             serverCertificate.setValidity(remains > 0L);
             serverCertificate.setMatch(matchService.find(serverName));
+            serverCertificate.setServerName(serverName);
         }
         return serverCertificate;
     }

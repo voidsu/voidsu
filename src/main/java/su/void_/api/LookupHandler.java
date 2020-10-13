@@ -18,6 +18,7 @@ package su.void_.api;
 
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
+import io.undertow.util.HeaderMap;
 import io.undertow.util.Headers;
 
 import javax.json.bind.Jsonb;
@@ -42,10 +43,53 @@ public class LookupHandler implements HttpHandler {
         LookupService probeService = new LookupService();
         ServerCertificate serverCertificate = probeService.lookup(address, port, serverName);
 
+        HeaderMap requestHeaderMap = exchange.getRequestHeaders();
+        String accept = requestHeaderMap.getFirst(Headers.ACCEPT);
+
+        String output = "";
+        if (accept.equals("text/plain; version=0.0.4")) {
+            output = doPrometheus(serverCertificate, port);
+            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain; version=0.0.4");
+        } else {
+            output = doJson(serverCertificate);
+            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "application/json");
+        }
+        exchange.getResponseSender().send(output);
+    }
+
+    private String doJson(ServerCertificate serverCertificate) {
         Jsonb jsonb = JsonbBuilder.create();
         String output = jsonb.toJson(serverCertificate);
+        return output;
+    }
 
-        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "Content-Type: text/plain; charset=utf-8");
-        exchange.getResponseSender().send(output);
+    private String doPrometheus(ServerCertificate serverCertificate, int port) {
+        String notAfter = GaugeBuilder
+                .create()
+                .metric("not_after", String.valueOf(serverCertificate.getNotAfter()))
+                .label("server_name", serverCertificate.getServerName() + ":" + port)
+                .toString();
+        String notBefore = GaugeBuilder
+                .create()
+                .metric("not_before", String.valueOf(serverCertificate.getNotBefore()))
+                .label("server_name", serverCertificate.getServerName() + ":" + port)
+                .toString();
+        String remains = GaugeBuilder
+                .create()
+                .metric("remains", String.valueOf(serverCertificate.getRemains()))
+                .label("server_name", serverCertificate.getServerName() + ":" + port)
+                .toString();
+        String validity = GaugeBuilder
+                .create()
+                .metric("validity", serverCertificate.getValidity() ? String.valueOf(1) : String.valueOf(0))
+                .label("server_name", serverCertificate.getServerName() + ":" + port)
+                .toString();
+        String match = GaugeBuilder
+                .create()
+                .metric("match", serverCertificate.getMatch() ? String.valueOf(1) : String.valueOf(0))
+                .label("server_name", serverCertificate.getServerName() + ":" + port)
+                .toString();
+        String output = notAfter + notBefore + remains + validity + match;
+        return output;
     }
 }

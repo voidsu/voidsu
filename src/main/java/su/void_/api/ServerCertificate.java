@@ -25,6 +25,7 @@ public class ServerCertificate implements Serializable {
     private Long remains = null;
     private Boolean validity = null;
     private Boolean match = false;
+    private String serverName = null;
 
     public Long getNotAfter() {
         return notAfter;
@@ -72,5 +73,13 @@ public class ServerCertificate implements Serializable {
 
     public void setMatch(Boolean match) {
         this.match = match;
+    }
+
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
     }
 }

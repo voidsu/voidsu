@@ -19,16 +19,14 @@ package su.void_.api;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.handlers.PathHandler;
-import java.io.IOException;
 
 public class Application {
     private Application() {
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         PathHandler pathHandler = Handlers.path()
                 .addPrefixPath("/lookup", new LookupHandler());
-
         Undertow server = Undertow.builder()
                 .addHttpListener(8080, "0.0.0.0")
                 .setHandler(pathHandler)

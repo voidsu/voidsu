@@ -55,7 +55,6 @@ public class PurposeService {
         if (certificate == null) {
             return false;
         }
-
         purpose = certificate.getKeyUsage();
         digitalSignature = purpose[0];
         nonRepudiation = purpose[1];
@@ -66,44 +65,18 @@ public class PurposeService {
         cRLSign = purpose[6];
         encipherOnly = purpose[7];
         decipherOnly = purpose[8];
-
-//        String[] purposeName = new String[] {
-//                "digitalSignature",
-//                "nonRepudiation",
-//                "keyEncipherment",
-//                "dataEncipherment",
-//                "keyAgreement",
-//                "keyCertSign",
-//                "cRLSign",
-//                "encipherOnly",
-//                "decipherOnly"
-//        };
-//
-//        for (int i = 0; i < purpose.length; i++) {
-//            System.out.println(purposeName[i] + ": " + purpose[i]);
-//        }
-
         if (isAbsent()) {
-//            System.out.println("isAbsent");
             return true;
         }
-
         if (isDigitalSignature()) {
-//            System.out.println("isDigitalSignature");
             return true;
         }
-
         if (isKeyEncipherment()) {
-//            System.out.println("isKeyEncipherment");
             return true;
         }
-
         if (isAbsentExceptTwoIndex(PurposeService.DIGITAL_SIGNATURE, PurposeService.KEY_ENCIPHERMENT)) {
-//            System.out.println("isDigitalSignature && isKeyEncipherment");
             return true;
         }
-
-//        System.out.println("false");
         return false;
     }
 
@@ -149,11 +122,6 @@ public class PurposeService {
                 break;
             }
         }
-//        System.out.println("-- isDigitalSignature && isKeyEncipherment --");
-//        System.out.println(isExceptIndexPrimary);
-//        System.out.println(isExceptIndexSecondary);
-//        System.out.println(isPurposeAbsent);
-//        System.out.println("~~ isDigitalSignature && isKeyEncipherment ~~");
         return (isExceptIndexPrimary && isExceptIndexSecondary && isPurposeAbsent);
     }
 
