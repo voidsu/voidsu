@@ -45,7 +45,7 @@ public class PurposeService {
             if (isServerCertificate(certificate)) {
                 break;
             } else {
-                certificate = null;
+                certificate = certificates[0];
             }
         }
         return certificate;
@@ -56,6 +56,9 @@ public class PurposeService {
             return false;
         }
         purpose = certificate.getKeyUsage();
+        if (purpose == null) {
+            return false;
+        }
         digitalSignature = purpose[0];
         nonRepudiation = purpose[1];
         keyEncipherment = purpose[2];

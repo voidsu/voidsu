@@ -20,6 +20,7 @@ import javax.net.ssl.*;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
+import java.security.SecureRandom;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
@@ -46,7 +47,12 @@ public class SocketService {
     }
 
     public void create() {
-        SSLSocketFactory sslSocketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        SSLSocketFactory sslSocketFactory = null;
+        try {
+            sslSocketFactory = createSslSocketFactory();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             sslSocket = (SSLSocket) sslSocketFactory.createSocket(address, port);
         } catch (ConnectException e) {
@@ -82,5 +88,22 @@ public class SocketService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private SSLSocketFactory createSslSocketFactory() throws Exception {
+        TrustManager[] trustManager = new TrustManager[] {
+            new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+                public void checkClientTrusted(X509Certificate[] chain, String authType) {
+                }
+                public void checkServerTrusted(X509Certificate[] chain, String authType) {
+                }
+            }
+        };
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, trustManager, new SecureRandom());
+        return sslContext.getSocketFactory();
     }
 }
