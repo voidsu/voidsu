@@ -9,7 +9,7 @@ It resolves and analyses X509 certificates from any remote address via the SSL/T
 Build your certificate monitoring service using embedded Java application!
 
 ## Container usage
-```
+```shell script
 podman run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.1.0
 
 docker run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.1.0
@@ -21,11 +21,11 @@ docker run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.1.0
 ```
 GET /lookup
 ```
-```
+```shell script
 curl -i -H "Accept: application/json" "http://127.0.0.1:8080/lookup?address=213.248.63.19&port=443&serverName=void.su"
 ```
 #### Response
-```
+```http request
 HTTP/1.1 200 OK
 Connection: keep-alive
 Content-Type: application/json
@@ -48,7 +48,7 @@ Date: Thu, 22 Oct 2020 21:44:42 GMT
 ```
 GET /lookup
 ```
-```
+```shell script
 curl -H "Accept: text/plain; version=0.0.4" "http://127.0.0.1:8080/lookup?address=213.248.63.19&port=443&serverName=void.su"
 ```
 #### Response
