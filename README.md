@@ -1,10 +1,12 @@
 # Voidsu
 
+![voidsu-logotype](https://user-images.githubusercontent.com/1849174/96934699-557b6980-14cb-11eb-8c80-b7f7af9f788c.jpg)
+
 ## Overview
 Voidsu is a digital certificates diagnostic tools.
 It resolves and analyses X509 certificates from any remote address via the SSL/TLS protocols.
 
-Make your certificate monitoring service using embedded Java application!
+Build your certificate monitoring service using embedded Java application!
 
 ## Container usage
 ```
