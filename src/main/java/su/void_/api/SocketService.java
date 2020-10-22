@@ -16,6 +16,7 @@
 
 package su.void_.api;
 
+import javax.naming.NotContextException;
 import javax.net.ssl.*;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -27,6 +28,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SocketService {
+    public static final String CIPHER_SUITE_NULL = "SSL_NULL_WITH_NULL_NULL";
+    public static final String PROTOCOL_NONE = "NONE";
+
     private String address = null;
     private Integer port = null;
     private String serverName = null;
@@ -46,7 +50,7 @@ public class SocketService {
         return sslParameters;
     }
 
-    public void create() {
+    public void create() throws NotContextException {
         SSLSocketFactory sslSocketFactory = null;
         try {
             sslSocketFactory = createSslSocketFactory();
@@ -57,6 +61,7 @@ public class SocketService {
             sslSocket = (SSLSocket) sslSocketFactory.createSocket(address, port);
         } catch (ConnectException e) {
             e.printStackTrace();
+            throw new NotContextException(e.getMessage());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -71,10 +76,15 @@ public class SocketService {
         TransformerService transformerService = new TransformerService();
         X509Certificate serverCertificate = null;
         try {
-            Certificate[] certificates = sslSession.getPeerCertificates();
-            X509Certificate[] x509Certificates = transformerService.transformToX509CertificateV3(certificates);
-            PurposeService purposeService = new PurposeService(x509Certificates);
-            serverCertificate = purposeService.findServerCertificate();
+            boolean isCipherSuiteNull = SocketService.CIPHER_SUITE_NULL.equals(sslSession.getCipherSuite());
+            boolean isProtocolNone = SocketService.PROTOCOL_NONE.equals(sslSession.getProtocol());
+
+            if (!(isCipherSuiteNull && isProtocolNone)) {
+                Certificate[] certificates = sslSession.getPeerCertificates();
+                X509Certificate[] x509Certificates = transformerService.transformToX509CertificateV3(certificates);
+                PurposeService purposeService = new PurposeService(x509Certificates);
+                serverCertificate = purposeService.findServerCertificate();
+            }
         } catch (SSLPeerUnverifiedException e) {
             e.printStackTrace();
         }

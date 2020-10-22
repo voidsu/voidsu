@@ -16,12 +16,20 @@
 
 package su.void_.api;
 
+import javax.naming.NotContextException;
+
 public class LookupService {
     public ServerCertificate lookup(String address, Integer port, String serverName) {
-        SocketService socketService = new SocketService(address, port, serverName);
-        socketService.create();
-        ServerCertificate serverCertificate = socketService.fetchServerCertificate();
-        socketService.close();
+        ServerCertificate serverCertificate = null;
+        try {
+            SocketService socketService = new SocketService(address, port, serverName);
+            socketService.create();
+            serverCertificate = socketService.fetchServerCertificate();
+            socketService.close();
+        } catch (NotContextException e) {
+            e.printStackTrace();
+            serverCertificate = new ServerCertificate();
+        }
         return serverCertificate;
     }
 }
