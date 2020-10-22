@@ -1,6 +1,6 @@
 # Voidsu
 
-![voidsu-logotype](https://user-images.githubusercontent.com/1849174/96934699-557b6980-14cb-11eb-8c80-b7f7af9f788c.jpg)
+![voidsu-logotype](https://repository-images.githubusercontent.com/301179117/7abca780-14cc-11eb-80f5-8035d8665ebe)
 
 ## Overview
 Voidsu is a digital certificates diagnostic tools.
