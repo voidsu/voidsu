@@ -1,0 +1,32 @@
+plugins {
+    id "java"
+    id "application"
+}
+
+repositories {
+    maven {
+        url "https://maven.repository.redhat.com/ga"
+    }
+    jcenter()
+}
+
+dependencies {
+    implementation "io.undertow:undertow-core:2.0.21.Final-redhat-00001"
+    implementation "javax.json:javax.json-api:1.1.4.redhat-00001"
+    implementation "org.glassfish:javax.json:1.1.4.redhat-00001"
+    implementation "javax.json.bind:javax.json.bind-api:1.0.0.redhat-1"
+    implementation "org.eclipse:yasson:1.0.5.redhat-00001"
+    testImplementation 'junit:junit:4.13'
+}
+
+application {
+    mainClassName = "su.void_.api.Application"
+}
+
+jar {
+    manifest {
+        attributes(
+            "Main-Class": application.getMainClassName()
+        )
+    }
+}
