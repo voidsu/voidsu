@@ -2,6 +2,13 @@
 
 ![voidsu-logotype](https://repository-images.githubusercontent.com/301179117/f4549580-14cc-11eb-9c63-3319c14221b9)
 
+<p align="center">
+<a href="https://discord.gg/33bAHde"><img src="https://img.shields.io/static/v1?logo=discord&label=&message=Discord&color=36393f&style=flat-square" alt="Discord"></a>
+<a href="https://github.com/voidsu/voidsu/releases/latest"><img src="https://img.shields.io/github/release/voidsu/voidsu.svg?style=flat-square" alt="Releases"></a>
+<a href="https://hub.docker.com/r/voidsu/voidsu"><img src="https://img.shields.io/static/v1?label=Docker&message=Hub&color=2496ED&logo=docker&logoColor=white&style=flat-square" alt="DockerHub"></a>
+<a href="https://github.com/voidsu/voidsu/blob/master/LICENSE"><img src="https://img.shields.io/github/license/voidsu/voidsu.svg?style=flat-square" alt="License"></a>
+</p>
+
 ## Overview
 Voidsu is a digital certificates diagnostic tools.
 It resolves and analyses X509 certificates from any remote address via the SSL/TLS protocols.
