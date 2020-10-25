@@ -17,9 +17,9 @@ Build your certificate monitoring service using embedded Java application!
 
 ## Container usage
 ```shell script
-podman run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.1.0
+podman run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.1.1
 
-docker run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.1.0
+docker run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.1.1
 ```
 
 ## API
