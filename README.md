@@ -56,7 +56,7 @@ Date: Thu, 22 Oct 2020 21:44:42 GMT
 GET /lookup
 ```
 ```shell script
-curl -H "Accept: text/plain; version=0.0.4" "http://127.0.0.1:8080/lookup?address=213.248.63.19&port=443&serverName=void.su"
+curl -H "Accept: text/plain;version=0.0.4" "http://127.0.0.1:8080/lookup?address=213.248.63.19&port=443&serverName=void.su"
 ```
 #### Response
 ```
