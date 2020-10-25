@@ -47,9 +47,10 @@ public class LookupHandler implements HttpHandler {
         String accept = requestHeaderMap.getFirst(Headers.ACCEPT);
 
         String output = "";
-        if (accept.equals("text/plain; version=0.0.4")) {
+        AcceptHeaderParserPrometheus acceptHeaderParserPrometheus = new AcceptHeaderParserPrometheus(accept);
+        if (acceptHeaderParserPrometheus.isPrometheus()) {
             output = doPrometheus(serverCertificate, port);
-            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain; version=0.0.4");
+            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain;version=0.0.4");
         } else {
             output = doJson(serverCertificate);
             exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "application/json");
