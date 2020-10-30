@@ -17,9 +17,9 @@ Build your certificate monitoring service using embedded Java application!
 
 ## Container usage
 ```shell script
-podman run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.1.1
+podman run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.2.0
 
-docker run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.1.1
+docker run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.2.0
 ```
 
 ## API
@@ -35,7 +35,7 @@ curl -i -H "Accept: application/json" "http://127.0.0.1:8080/lookup?address=213.
 ```http request
 HTTP/1.1 200 OK
 Connection: keep-alive
-Content-Type: application/json
+Content-Type: application/json;charset=UTF-8
 Content-Length: 154
 Date: Thu, 22 Oct 2020 21:44:42 GMT
 
@@ -56,7 +56,7 @@ Date: Thu, 22 Oct 2020 21:44:42 GMT
 GET /lookup
 ```
 ```shell script
-curl -H "Accept: text/plain;version=0.0.4" "http://127.0.0.1:8080/lookup?address=213.248.63.19&port=443&serverName=void.su"
+curl -H "Accept: text/plain;version=0.0.4;charset=UTF-8" "http://127.0.0.1:8080/lookup?address=213.248.63.19&port=443&serverName=void.su"
 ```
 #### Response
 ```
