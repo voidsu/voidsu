@@ -5,6 +5,9 @@ plugins {
 
 repositories {
     maven {
+        url "https://repository.jboss.org/nexus/content/repositories/releases"
+    }
+    maven {
         url "https://maven.repository.redhat.com/ga"
     }
     jcenter()
@@ -12,6 +15,7 @@ repositories {
 
 dependencies {
     implementation "io.undertow:undertow-core:2.0.21.Final-redhat-00001"
+    implementation "io.undertow:undertow-servlet:2.0.21.Final-redhat-00001"
     implementation "javax.json:javax.json-api:1.1.4.redhat-00001"
     implementation "org.glassfish:javax.json:1.1.4.redhat-00001"
     implementation "javax.json.bind:javax.json.bind-api:1.0.0.redhat-1"
