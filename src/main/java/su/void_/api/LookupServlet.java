@@ -16,46 +16,55 @@
 
 package su.void_.api;
 
-import io.undertow.server.HttpHandler;
-import io.undertow.server.HttpServerExchange;
-import io.undertow.util.HeaderMap;
 import io.undertow.util.Headers;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
-import java.util.Deque;
-import java.util.Map;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-public class LookupHandler implements HttpHandler {
+public class LookupServlet extends HttpServlet {
     @Override
-    public void handleRequest(final HttpServerExchange exchange) {
-        Map<String, Deque<String>> parameters = exchange.getQueryParameters();
-        Deque<String> addressDeque = parameters.get("address");
-        String address = addressDeque.getLast();
+    public void init(final ServletConfig config) throws ServletException {
+        super.init(config);
+    }
 
-        Deque<String> portDeque = parameters.get("port");
-        String portString = portDeque.getLast();
+    @Override
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+        String address = request.getParameter("address");
+        String portString = request.getParameter("port");
         int port = Integer.valueOf(portString);
-
-        Deque<String> serverNameDeque = parameters.get("serverName");
-        String serverName = serverNameDeque.getLast();
+        String serverName = request.getParameter("serverName");
 
         LookupService probeService = new LookupService();
         ServerCertificate serverCertificate = probeService.lookup(address, port, serverName);
 
-        HeaderMap requestHeaderMap = exchange.getRequestHeaders();
-        String accept = requestHeaderMap.getFirst(Headers.ACCEPT);
-
+        String acceptHeader = request.getHeader(Headers.ACCEPT_STRING);
         String output = "";
-        AcceptHeaderParserPrometheus acceptHeaderParserPrometheus = new AcceptHeaderParserPrometheus(accept);
+        AcceptHeaderParserPrometheus acceptHeaderParserPrometheus = new AcceptHeaderParserPrometheus(acceptHeader);
         if (acceptHeaderParserPrometheus.isPrometheus()) {
             output = doPrometheus(serverCertificate, port);
-            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain;version=0.0.4");
+            response.setHeader(Headers.CONTENT_TYPE_STRING, "text/plain;version=0.0.4");
         } else {
             output = doJson(serverCertificate);
-            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "application/json");
+            response.setHeader(Headers.CONTENT_TYPE_STRING, "application/json");
         }
-        exchange.getResponseSender().send(output);
+
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.write(output);
+        writer.close();
+    }
+
+    @Override
+    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
     }
 
     private String doJson(ServerCertificate serverCertificate) {

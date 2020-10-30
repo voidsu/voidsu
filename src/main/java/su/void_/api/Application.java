@@ -19,14 +19,38 @@ package su.void_.api;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.handlers.PathHandler;
+import io.undertow.servlet.Servlets;
+import io.undertow.servlet.api.DeploymentInfo;
+import io.undertow.servlet.api.DeploymentManager;
+
+import javax.servlet.ServletException;
+
+import static io.undertow.servlet.Servlets.servlet;
 
 public class Application {
     private Application() {
     }
 
     public static void main(String[] args) {
-        PathHandler pathHandler = Handlers.path()
-                .addPrefixPath("/lookup", new LookupHandler());
+        DeploymentInfo servletBuilder = Servlets.deployment()
+                .setClassLoader(Application.class.getClassLoader())
+                .setContextPath("/")
+                .setDeploymentName("voidsu.war")
+                .addServlets(
+                    servlet("LookupServlet", LookupServlet.class)
+                        .addMapping("/lookup")
+                );
+
+        DeploymentManager manager = Servlets.defaultContainer().addDeployment(servletBuilder);
+        manager.deploy();
+
+        PathHandler pathHandler = null;
+        try {
+            pathHandler = Handlers.path()
+                .addPrefixPath("/", manager.start());
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
         Undertow server = Undertow.builder()
                 .addHttpListener(8080, "0.0.0.0")
                 .setHandler(pathHandler)
