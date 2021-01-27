@@ -1,6 +1,5 @@
 # Voidsu
 
-![](https://hit.yhype.me/github/profile?user_id=7263043)
 ![voidsu-logotype](https://repository-images.githubusercontent.com/301179117/f4549580-14cc-11eb-9c63-3319c14221b9)
 
 <p align="center">
