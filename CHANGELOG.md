@@ -19,11 +19,11 @@
 
 ## 0.2.0 - 2020-10-30
 
-- Migration to servlet
+- Migrated to servlet
 
 ## 0.1.1 - 2020-10-25
 
-- Improved Prometheus Accept header parsing
+- Fixed Prometheus Accept header parsing
 
 ## 0.1.0 - 2020-10-23
 
