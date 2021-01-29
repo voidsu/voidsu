@@ -15,7 +15,7 @@ It resolves and analyses X509 certificates from any remote address via the SSL/T
 
 Build your certificate monitoring service using embedded Java application!
 
-## Container usage
+## Container
 
 Docker
 ```shell script
@@ -32,6 +32,12 @@ cd /tmp && \
 curl -o voidsu.yml https://raw.githubusercontent.com/voidsu/container/master/voidsu.yml && \
 mkdir voidsu && \
 podman play kube voidsu.yml
+```
+
+## Build
+
+```shell script
+./gradlew[.bat] quarkusBuild
 ```
 
 ## API
