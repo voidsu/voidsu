@@ -12,6 +12,7 @@
 
 - Migrated to Quarkus
 - Migrated to JAX-RS
+- Changed API request GET /lookup to POST /lookup
 
 ### Removed
 
