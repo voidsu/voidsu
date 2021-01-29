@@ -17,9 +17,17 @@
 package su.void_.api;
 
 import javax.naming.NotContextException;
+import org.jboss.logging.Logger;
 
 public class LookupService {
+    private static final Logger LOG = Logger.getLogger(LookupService.class);
+
     public ServerCertificate lookup(String address, Integer port, String serverName) {
+        LOG.infov(
+            "request: [address: {0}, port: {1}, server_name: {2}]",
+            address,
+            port,
+            serverName);
         ServerCertificate serverCertificate = null;
         try {
             SocketService socketService = new SocketService(address, port, serverName);

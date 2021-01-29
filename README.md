@@ -15,57 +15,69 @@ It resolves and analyses X509 certificates from any remote address via the SSL/T
 
 Build your certificate monitoring service using embedded Java application!
 
-## Container usage
-```shell script
-podman run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.2.0
+## Container
 
-docker run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.2.0
+### Docker
+```shell script
+docker run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.3.0
+```
+
+### Podman
+```shell script
+podman run --rm -it -p 8080:8080 registry.hub.docker.com/voidsu/voidsu:0.3.0
+```
+
+```shell script
+cd /tmp && \
+curl -o voidsu.yml https://raw.githubusercontent.com/voidsu/container/master/voidsu.yml && \
+mkdir voidsu && \
+podman play kube voidsu.yml
+```
+
+## Build
+
+```shell script
+./gradlew[.bat] quarkusBuild
 ```
 
 ## API
 ### JSON lookup
 #### Request
 ```
-GET /lookup
+POST /lookup
 ```
+
+#### Data
+```
+{
+    "address": "void.su",
+    "port": "443",
+    "domain_name": "void.su"
+}
+```
+
+#### curl
 ```shell script
-curl -i -H "Accept: application/json" "http://127.0.0.1:8080/lookup?address=213.248.63.19&port=443&serverName=void.su"
+curl -i -H "Content-Type: application/json" -H "X-Request-ID: 5fb3612904ba9a3339a33a90a8e92133" -d '{"address":"void.su","port":"443","domain_name":"void.su"}' -X POST http://127.0.0.1:8080/lookup
 ```
+
 #### Response
 ```http request
 HTTP/1.1 200 OK
-Connection: keep-alive
-Content-Type: application/json;charset=UTF-8
-Content-Length: 154
-Date: Thu, 22 Oct 2020 21:44:42 GMT
+Content-Type: application/json
+Content-Length: 148
 
 {
-    "distinguishedName": "CN=void.su",
+    "distinguished_name": "CN=void.su",
     "match": true,
-    "notAfter": 1609660977,
-    "notBefore": 1601884977,
+    "not_after": 1609660977,
+    "not_before": 1601884977,
     "remains": 72,
-    "serverName": "void.su",
+    "server_name": "void.su",
     "validity": true
 }
 ```
 
-### Prometheus lookup
-#### Request
-```
-GET /lookup
-```
-```shell script
-curl -H "Accept: text/plain;version=0.0.4" "http://127.0.0.1:8080/lookup?address=213.248.63.19&port=443&serverName=void.su"
-```
-#### Response
-```
-not_after{server_name="void.su:443"} 1609660977 1603403377476
-not_before{server_name="void.su:443"} 1601884977 1603403377476
-remains{server_name="void.su:443"} 72 1603403377476
-validity{server_name="void.su:443"} 1 1603403377476
-match{server_name="void.su:443"} 1 1603403377476
-```
 ## Thanks
 ![Java Profiler, .NET Profiler, Continuous Performance Monitoring | YourKit](https://www.yourkit.com/images/yklogo.png)
 

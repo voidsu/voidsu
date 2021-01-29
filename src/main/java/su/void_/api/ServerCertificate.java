@@ -17,7 +17,10 @@
 package su.void_.api;
 
 import java.io.Serializable;
+import javax.json.bind.annotation.JsonbProperty;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
+@RegisterForReflection
 public class ServerCertificate implements Serializable {
     private Long notAfter = null;
     private Long notBefore = null;
@@ -27,6 +30,7 @@ public class ServerCertificate implements Serializable {
     private Boolean match = false;
     private String serverName = null;
 
+    @JsonbProperty(value = "not_after")
     public Long getNotAfter() {
         return notAfter;
     }
@@ -35,6 +39,7 @@ public class ServerCertificate implements Serializable {
         this.notAfter = notAfter;
     }
 
+    @JsonbProperty(value = "not_before")
     public Long getNotBefore() {
         return notBefore;
     }
@@ -43,6 +48,7 @@ public class ServerCertificate implements Serializable {
         this.notBefore = notBefore;
     }
 
+    @JsonbProperty(value = "distinguished_name")
     public String getDistinguishedName() {
         return distinguishedName;
     }
@@ -51,6 +57,7 @@ public class ServerCertificate implements Serializable {
         this.distinguishedName = distinguishedName;
     }
 
+    @JsonbProperty(value = "remains")
     public Long getRemains() {
         return remains;
     }
@@ -59,6 +66,7 @@ public class ServerCertificate implements Serializable {
         this.remains = remains;
     }
 
+    @JsonbProperty(value = "validity")
     public Boolean getValidity() {
         return validity;
     }
@@ -67,6 +75,7 @@ public class ServerCertificate implements Serializable {
         this.validity = validity;
     }
 
+    @JsonbProperty(value = "match")
     public Boolean getMatch() {
         return match;
     }
@@ -75,6 +84,7 @@ public class ServerCertificate implements Serializable {
         this.match = match;
     }
 
+    @JsonbProperty(value = "server_name")
     public String getServerName() {
         return serverName;
     }
