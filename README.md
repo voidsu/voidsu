@@ -64,10 +64,8 @@ curl -i -H "Content-Type: application/json" -H "X-Request-ID: 5fb3612904ba9a3339
 #### Response
 ```http request
 HTTP/1.1 200 OK
-Connection: keep-alive
-Content-Type: application/json;charset=UTF-8
-Content-Length: 154
-Date: Thu, 22 Oct 2020 21:44:42 GMT
+Content-Type: application/json
+Content-Length: 148
 
 {
     "distinguished_name": "CN=void.su",
