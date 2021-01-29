@@ -19,7 +19,7 @@
 
 ## 0.2.0 - 2020-10-30
 
-- Migrated to servlet
+- Migrated to Servlet
 
 ## 0.1.1 - 2020-10-25
 
