@@ -18,7 +18,6 @@ package su.void_.api;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import co.elastic.apm.attach.ElasticApmAttacher;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 import org.jboss.logging.Logger;
@@ -29,11 +28,6 @@ public class ApplicationInitializer {
 
     public void onStart(@Observes StartupEvent event) {
         LOG.info("The application is starting...");
-
-        String elasticApmEnabled = System.getenv("ELASTIC_APM_ENABLED");
-        if (elasticApmEnabled != null && elasticApmEnabled.equals("true")) {
-            ElasticApmAttacher.attach();
-        }
     }
 
     public void onStop(@Observes ShutdownEvent event) {
