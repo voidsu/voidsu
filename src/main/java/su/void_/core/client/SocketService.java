@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-package su.void_.core;
+package su.void_.core.client;
+
+import su.void_.core.PurposeService;
+import su.void_.core.ServerCertificate;
+import su.void_.core.ServerCertificateMapper;
+import su.void_.core.TransformerService;
 
 import javax.naming.NotContextException;
 import javax.net.ssl.*;

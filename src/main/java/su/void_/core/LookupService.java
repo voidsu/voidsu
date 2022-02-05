@@ -18,6 +18,7 @@ package su.void_.core;
 
 import javax.naming.NotContextException;
 import org.jboss.logging.Logger;
+import su.void_.core.client.SocketService;
 
 public class LookupService {
     private static final Logger LOG = Logger.getLogger(LookupService.class);
