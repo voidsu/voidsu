@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-package su.void_.api;
+package su.void_.core;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import io.quarkus.runtime.ShutdownEvent;
-import io.quarkus.runtime.StartupEvent;
-import org.jboss.logging.Logger;
+import javax.inject.Singleton;
+import javax.json.bind.JsonbConfig;
+import javax.json.bind.config.PropertyNamingStrategy;
+import io.quarkus.jsonb.JsonbConfigCustomizer;
 
-@ApplicationScoped
-public class ApplicationInitializer {
-    private static final Logger LOG = Logger.getLogger(ApplicationInitializer.class);
-
-    public void onStart(@Observes StartupEvent event) {
-        LOG.info("The application is starting...");
-    }
-
-    public void onStop(@Observes ShutdownEvent event) {
-        LOG.info("The application is stopping...");
+@Singleton
+public class PropertyNamingStrategyCustomizer implements JsonbConfigCustomizer {
+    public void customize(JsonbConfig config) {
+        config.withPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES);
     }
 }

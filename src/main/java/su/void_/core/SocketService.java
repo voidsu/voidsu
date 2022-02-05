@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package su.void_.api;
+package su.void_.core;
 
 import javax.naming.NotContextException;
 import javax.net.ssl.*;

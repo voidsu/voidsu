@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package su.void_.api;
+package su.void_.core;
 
 import javax.json.bind.annotation.JsonbProperty;
 import java.io.Serializable;

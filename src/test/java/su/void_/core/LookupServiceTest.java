@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Dmitry Romanyuta
+ * Copyright 2020 Dmitry Romanyuta
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package su.void_.api;
+package su.void_.core;
 
-import javax.inject.Singleton;
-import javax.json.bind.JsonbConfig;
-import javax.json.bind.config.PropertyNamingStrategy;
-import io.quarkus.jsonb.JsonbConfigCustomizer;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-@Singleton
-public class PropertyNamingStrategyCustomizer implements JsonbConfigCustomizer {
-    public void customize(JsonbConfig config) {
-        config.withPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES);
+public class LookupServiceTest {
+    @Test public void testSomeLibraryMethod() {
+        LookupService classUnderTest = new LookupService();
+        ServerCertificate serverCertificate = classUnderTest.lookup("", 0, "");
+        assertTrue("someLibraryMethod should return", serverCertificate.getValidity());
     }
 }
