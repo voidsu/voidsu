@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package su.void_.core;
+package su.void_.analysis;
 
 import java.io.ByteArrayInputStream;
 import java.security.cert.CertificateFactory;

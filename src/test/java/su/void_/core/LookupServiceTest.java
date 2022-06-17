@@ -17,6 +17,9 @@
 package su.void_.core;
 
 import org.junit.Test;
+import su.void_.LookupService;
+import su.void_.analysis.ServerCertificate;
+
 import static org.junit.Assert.*;
 
 public class LookupServiceTest {

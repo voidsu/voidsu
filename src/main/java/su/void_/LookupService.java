@@ -14,27 +14,28 @@
  * limitations under the License.
  */
 
-package su.void_.core;
+package su.void_;
 
 import javax.naming.NotContextException;
 import org.jboss.logging.Logger;
-import su.void_.core.client.SocketService;
+import su.void_.analysis.ServerCertificate;
+import su.void_.telemetry.SecureMasurer;
 
 public class LookupService {
-    private static final Logger LOG = Logger.getLogger(LookupService.class);
+    private static final Logger LOGGER = Logger.getLogger(LookupService.class);
 
     public ServerCertificate lookup(String address, Integer port, String serverName) {
-        LOG.infov(
+        LOGGER.infov(
             "request: [address: {0}, port: {1}, server_name: {2}]",
             address,
             port,
             serverName);
         ServerCertificate serverCertificate = null;
         try {
-            SocketService socketService = new SocketService(address, port, serverName);
-            socketService.create();
-            serverCertificate = socketService.fetchServerCertificate();
-            socketService.close();
+            SecureMasurer secureCrawler = new SecureMasurer(address, port, serverName);
+            secureCrawler.create();
+            serverCertificate = secureCrawler.fetchServerCertificate();
+            secureCrawler.close();
         } catch (NotContextException e) {
             e.printStackTrace();
             serverCertificate = new ServerCertificate();

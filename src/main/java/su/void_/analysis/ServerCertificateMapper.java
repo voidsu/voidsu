@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package su.void_.core;
+package su.void_.analysis;
 
 import java.security.cert.X509Certificate;
 import java.time.Duration;

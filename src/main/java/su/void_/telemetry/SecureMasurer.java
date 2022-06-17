@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package su.void_.core.client;
+package su.void_.telemetry;
 
-import su.void_.core.PurposeService;
-import su.void_.core.ServerCertificate;
-import su.void_.core.ServerCertificateMapper;
-import su.void_.core.TransformerService;
+import su.void_.analysis.PurposeService;
+import su.void_.analysis.ServerCertificate;
+import su.void_.analysis.ServerCertificateMapper;
+import su.void_.analysis.TransformerService;
 
 import javax.naming.NotContextException;
 import javax.net.ssl.*;
@@ -32,7 +32,7 @@ import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.List;
 
-public class SocketService {
+public class SecureMasurer implements Masurer {
     public static final String CIPHER_SUITE_NULL = "SSL_NULL_WITH_NULL_NULL";
     public static final String PROTOCOL_NONE = "NONE";
 
@@ -42,7 +42,7 @@ public class SocketService {
     private SSLSocket sslSocket = null;
     private SSLSession sslSession = null;
 
-    public SocketService(String address, Integer port, String serverName) {
+    public SecureMasurer(String address, Integer port, String serverName) {
         this.address = address;
         this.port = port;
         this.serverName = serverName;
@@ -81,8 +81,8 @@ public class SocketService {
         TransformerService transformerService = new TransformerService();
         X509Certificate serverCertificate = null;
         try {
-            boolean isCipherSuiteNull = SocketService.CIPHER_SUITE_NULL.equals(sslSession.getCipherSuite());
-            boolean isProtocolNone = SocketService.PROTOCOL_NONE.equals(sslSession.getProtocol());
+            boolean isCipherSuiteNull = SecureMasurer.CIPHER_SUITE_NULL.equals(sslSession.getCipherSuite());
+            boolean isProtocolNone = SecureMasurer.PROTOCOL_NONE.equals(sslSession.getProtocol());
 
             if (!(isCipherSuiteNull && isProtocolNone)) {
                 Certificate[] certificates = sslSession.getPeerCertificates();
